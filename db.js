@@ -3,7 +3,7 @@ const { Database } = pkg
 
 import pkg1 from 'mkdirp'
 const { sync } = pkg1
-import { randomBytes, pbkdf2Sync } from 'crypto';
+import crypto from 'crypto';
 
 sync('var/db');
 
@@ -37,10 +37,10 @@ db.serialize(function() {
   )");
   
   // create an initial user (username: alice, password: letmein)
-  var salt = randomBytes(16);
+  var salt = crypto.randomBytes(16);
   db.run('INSERT OR IGNORE INTO users (username, hashed_password, salt) VALUES (?, ?, ?)', [
     'alice',
-    pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
+    crypto.pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
     salt
   ]);
 });
