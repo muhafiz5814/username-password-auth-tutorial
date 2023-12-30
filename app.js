@@ -9,6 +9,9 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from "url"
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import session from "express-session";
+const SQLiteStore = require("connect-sqlite3")(session)
+import passport from "passport";
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -28,6 +31,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
+}));
+app.use(passport.authenticate('session'));
 
 app.use('/', indexRouter);
 app.use('/', authRouter)
