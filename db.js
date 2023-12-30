@@ -1,6 +1,6 @@
 import pkg from 'sqlite3';
 const { Database } = pkg
-// const sqlite3 = require('sqlite3')
+
 import pkg1 from 'mkdirp'
 const { sync } = pkg1
 import { randomBytes, pbkdf2Sync } from 'crypto';
