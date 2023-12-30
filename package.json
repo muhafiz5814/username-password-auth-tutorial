@@ -17,7 +17,7 @@
   "homepage": "https://github.com/passport/todos-express-starter",
   "repository": {
     "type": "git",
-    "url": "git://github.com/passport/todos-express-starter.git"
+    "url": "https://github.com/muhafiz5814/username-password-auth-tutorial"
   },
   "bugs": {
     "url": "https://github.com/passport/todos-express-starter/issues"
@@ -27,6 +27,7 @@
     "url": "https://github.com/sponsors/jaredhanson"
   },
   "license": "Unlicense",
+  "type": "module",
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -34,8 +35,8 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.6.0",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
     "http-errors": "~1.6.3",
     "mkdirp": "^1.0.4",
     "morgan": "~1.9.1",

@@ -1,10 +1,13 @@
-var sqlite3 = require('sqlite3');
-var mkdirp = require('mkdirp');
-var crypto = require('crypto');
+import pkg from 'sqlite3';
+const { Database } = pkg
+// const sqlite3 = require('sqlite3')
+import pkg1 from 'mkdirp'
+const { sync } = pkg1
+import { randomBytes, pbkdf2Sync } from 'crypto';
 
-mkdirp.sync('var/db');
+sync('var/db');
 
-var db = new sqlite3.Database('var/db/todos.db');
+var db = new Database('var/db/todos.db');
 
 db.serialize(function() {
   // create the database schema for the todos app
@@ -34,12 +37,12 @@ db.serialize(function() {
   )");
   
   // create an initial user (username: alice, password: letmein)
-  var salt = crypto.randomBytes(16);
+  var salt = randomBytes(16);
   db.run('INSERT OR IGNORE INTO users (username, hashed_password, salt) VALUES (?, ?, ?)', [
     'alice',
-    crypto.pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
+    pbkdf2Sync('letmein', salt, 310000, 32, 'sha256'),
     salt
   ]);
 });
 
-module.exports = db;
+export default db;

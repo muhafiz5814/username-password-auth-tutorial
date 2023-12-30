@@ -1,5 +1,5 @@
-var express = require('express');
-var db = require('../db');
+import express from 'express';
+import db from '../db.js';
 
 function fetchTodos(req, res, next) {
   db.all('SELECT * FROM todos WHERE owner_id = ?', [
@@ -116,4 +116,4 @@ router.post('/clear-completed', function(req, res, next) {
   });
 });
 
-module.exports = router;
+export default router;

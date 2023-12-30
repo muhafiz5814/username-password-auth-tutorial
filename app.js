@@ -1,26 +1,32 @@
-require('dotenv').config();
+import "dotenv/config"
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
-var indexRouter = require('./routes/index');
+import createError from 'http-errors';
+import express from 'express';
+import { join, dirname } from 'path';
+import { fileURLToPath } from "url"
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+import indexRouter from './routes/index.js';
 
 var app = express();
 
 app.locals.pluralize = require('pluralize');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static("public"));
 
 app.use('/', indexRouter);
 
@@ -40,4 +46,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
