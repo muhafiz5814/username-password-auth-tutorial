@@ -23,15 +23,15 @@ const router = express.Router()
 
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
-      cb(null, { id: user.id, username: user.username });
+        cb(null, { id: user.id, username: user.username });
     });
-  });
+});
   
-  passport.deserializeUser(function(user, cb) {
+passport.deserializeUser(function(user, cb) {
     process.nextTick(function() {
-      return cb(null, user);
+        return cb(null, user);
     });
-  });
+});
 
 router.get("/login", (req, res) => {
     res.render("login")
@@ -41,5 +41,12 @@ router.post('/login/password', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login'
   }))
+
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+});
 
 export default router
