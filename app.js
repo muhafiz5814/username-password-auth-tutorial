@@ -13,6 +13,7 @@ import logger from 'morgan';
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 import indexRouter from './routes/index.js';
+import authRouter from './routes/auth.js'
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static("public"));
 
 app.use('/', indexRouter);
+app.use('/', authRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
